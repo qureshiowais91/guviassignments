@@ -17,11 +17,3 @@ li a {
 body h1{
     font-size: 2rem;
 }
-
-@media screen and (min-width: 768px) {
-    .no-justify-center{
-      justify-content: initial !important;
-      color:   red;
-    }
-  }
-  
