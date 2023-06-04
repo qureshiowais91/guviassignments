@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Dogs table</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    crossorigin="anonymous">
+</head>
+
+<body>
+
+
+  <div class="container d-flex">
+    <p class="container m-3">id</p>
+    <p class="container m-3">CreatedAt</p>
+    <p class="container m-3">Name</p>
+    <p class="container m-3">Lastname</p>
+    <p class="container m-3">Profession</p>
+  </div>
+
+  <div class="app"></div>
+
+  <!-- Modal -->
+  <div class="modal top fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true"
+    data-bs-backdrop="false" data-bs-keyboard="false">
+    <div class="modal-dialog  bd-example-modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteModal">Delete Modal</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="container-sm">
+                <form action=""  class="d-flex" method="post">
+                  <input type="number" class="m-1" placeholder="startRange">
+                  <input type="number" class="m-1" placeholder="EndRange">
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-danger deletebtn ">Delete Range</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal top fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true"
+    data-bs-backdrop="false" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg  modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Modal</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+ 
+
+  <div class="container d-flex justify-content-center m-3 p-3">
+    <button type="button" class="btn btn-primary btn-sm m-3" data-bs-toggle="modal"
+      data-bs-target="#deleteModal">Delete</button>
+    <button type="button" class="btn btn-primary btn-sm m-3" data-bs-toggle="modal"
+      data-bs-target="#editModal">Update</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pzjwYb+7pZdy0F5OHiJEmTzhsx0aQk+OHVoWKp8+Kw0TCiStsl4YnUaHbe/KVXcB"
+    crossorigin="anonymous"></script>
+  <script src="./main.js"></script>
+
+
+</body>
+
+</html>
