@@ -92,7 +92,7 @@ savebtn.addEventListener("click", (evt) => {
     lastname: values[2],
     profession: values[3],
   };
-  debugger
+  
   fetch(`${baseUrl}users/${values[0]}`, {
     method: "PUT",
     headers: {
@@ -100,7 +100,8 @@ savebtn.addEventListener("click", (evt) => {
     },
     body: JSON.stringify(payload),
   });
-  window.location.reload(true);
+  
+  setTimeout(function(){ window. location. reload(); }, 1000)
 });
 
 
@@ -129,7 +130,7 @@ addbtn.addEventListener("click", (evt) => {
   });
 
 
-  // window.location.reload(true);
+  setTimeout(function(){ window. location. reload(); }, 1000)
 
 
 });
