@@ -14,7 +14,7 @@
 
   <div class="container d-flex">
     <p class="container m-3">id</p>
-    <p class="container m-3">CreatedAt</p>
+  
     <p class="container m-3">Name</p>
     <p class="container m-3">Lastname</p>
     <p class="container m-3">Profession</p>
@@ -34,8 +34,7 @@
         <div class="modal-body">
             <div class="container-sm">
                 <form action=""  class="d-flex" method="post">
-                  <input type="number" class="m-1" placeholder="startRange">
-                  <input type="number" class="m-1" placeholder="EndRange">
+                  <input type="number" class="m-1" placeholder="Enter ID To Delete">
                 </form>
             </div>
         </div>
@@ -43,7 +42,7 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Close
           </button>
-          <button type="button" class="btn btn-danger deletebtn ">Delete Range</button>
+          <button type="button" class="btn btn-danger deletebtn ">Delete</button>
         </div>
       </div>
     </div>
@@ -60,14 +59,19 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-
-
+          <form action="" class="d-flex flex-column update " method="post">
+            <input type="number" class="m-1" placeholder="Enter ID To Delete">
+            <input type="text" class="m-1" placeholder="Enter Name">
+            <input type="text" class="m-1" placeholder="Enter LastName">
+            <input type="text" class="m-1" placeholder="Enter Profession">
+          </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
             Close
           </button>
-          <button type="button" class="btn btn-primary">Save changes</button>
+          <button type="button" class="btn btn-primary savebtn">Save changes</button>
+          <button type="button" class="btn btn-primary addbtn">Add New</button>
         </div>
       </div>
     </div>

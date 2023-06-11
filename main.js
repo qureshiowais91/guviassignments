@@ -13,7 +13,6 @@ class urow extends HTMLElement {
     this.innerHTML = `
       <div class="container d-flex">
         <p class="container m-2">${this._id}</p>
-        <p class="container m-2">${this._createdAt}</p>
         <p class="container m-2">${this._name}</p>
         <p class="container m-2">${this._lastname}</p>
         <p class="container m-2">${this._profession}</p>
@@ -28,6 +27,9 @@ class urow extends HTMLElement {
 customElements.define("user-row", urow);
 
 const baseUrl = "https://638d83c24190defdb745a6df.mockapi.io/";
+const deletebtn = document.querySelector(".deletebtn");
+const savebtn = document.querySelector(".savebtn");
+const addbtn = document.querySelector(".addbtn");
 
 async function returnRes(url, endpoint, method) {
   try {
@@ -55,59 +57,79 @@ user
   })
   .catch((error) => {
     console.error("An error occurred:", error);
-   
   });
-
-const deletebtn = document.querySelector(".deletebtn");
-console.log(deletebtn);
-
-// deletebtn.addEventListener("click", (evt) => {
-//   const id = document.querySelectorAll("input");
-//   const idArr = Array.from(id);
-//   const values = idArr.map((id) => id.value);
-//   if (parseInt(values[1]) - parseInt(values[0]) > 20) {
-//     alert("Less Then 20 Delete Allowed At A Time");
-//   }
-//   alert(parseInt(values[1]) - parseInt(values[0]));
-//   for (let i = values[0]; i <= values[1]; i++) {
-//    debugger
-//       fetch(baseUrl + "users/" + parseInt(i), { method: "DELETE" })
-//         .then((res) => {
-//           if (!res.ok) {
-//             throw new Error("Request failed with status " + res.status);
-//           }
-//           console.log(res);
-//         })
-//         .catch((error) => {
-//           console.error("An error occurred:", error);
-//         });
-//   }
- 
-// });
-
 
 deletebtn.addEventListener("click", async (evt) => {
   debugger;
-  const id = document.querySelectorAll("input");
-  const idArr = Array.from(id);
-  const values = idArr.map((id) => id.value);
-  
+  const id = document.querySelector("input");
   try {
-    debugger
-    if((values[1]-values[0]>11)){
-      alert("range size must be less then 10")
-    }
-    for (let i = values[0]; i <= values[1]; i++) {
-      const response = await fetch(baseUrl + "users/" + parseInt(i), { method: "DELETE" });
-      if (!response.ok) {
-        throw new Error("Request failed with status " + response.status);
+    const response = await fetch(`${baseUrl}/users/${id.value}`, {
+      method: "DELETE",
+    });
+    response.json((res) => {
+      if (!res.ok) {
+        throw new Error(res.statusText);
       }
-      console.log(response);
-    }
-    setTimeout(() => {
-      window.location.reload(true);
-    }, 1000);
+    });
   } catch (error) {
-    console.error("An error occurred:", error);
+    console.error(error);
   }
+  window.location.reload(true);
+});
+
+savebtn.addEventListener("click", (evt) => {
+  const ipt = document.querySelector(".update").children;
+  const inpArr = Array.from(ipt);
+  const values = [];
+
+  inpArr.forEach((elm) => {
+    values.push(elm.value);
+  });
+
+  const payload = {
+    id: values[0],
+    name: values[1],
+    lastname: values[2],
+    profession: values[3],
+  };
+  debugger
+  fetch(`${baseUrl}users/${values[0]}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  window.location.reload(true);
+});
+
+
+addbtn.addEventListener("click", (evt) => {
+  const addbtn = document.querySelector(".update").children;
+  const addNewValues = Array.from(addbtn);
+  const values = [];
+
+  addNewValues.forEach((elm) => {
+    values.push(elm.value);
+  });
+
+  const payload = {
+    id: values[0],
+    name: values[1],
+    lastname: values[2],
+    profession: values[3],
+  };
+  debugger
+  fetch(`${baseUrl}users`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+
+
+  // window.location.reload(true);
+
+
 });
