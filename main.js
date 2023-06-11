@@ -27,6 +27,8 @@ class urow extends HTMLElement {
 customElements.define("user-row", urow);
 
 const baseUrl = "https://638d83c24190defdb745a6df.mockapi.io/";
+const findIPbaseUrl =
+  "https://ipgeolocation.abstractapi.com/v1/?api_key=72522b320c09463ea59de4ca1b704736";
 const deletebtn = document.querySelector(".deletebtn");
 const savebtn = document.querySelector(".savebtn");
 const addbtn = document.querySelector(".addbtn");
@@ -60,7 +62,6 @@ user
   });
 
 deletebtn.addEventListener("click", async (evt) => {
-  debugger;
   const id = document.querySelector("input");
   try {
     const response = await fetch(`${baseUrl}/users/${id.value}`, {
@@ -74,7 +75,9 @@ deletebtn.addEventListener("click", async (evt) => {
   } catch (error) {
     console.error(error);
   }
-  window.location.reload(true);
+  setTimeout(function () {
+    window.location.reload();
+  }, 1000);
 });
 
 savebtn.addEventListener("click", (evt) => {
@@ -92,7 +95,7 @@ savebtn.addEventListener("click", (evt) => {
     lastname: values[2],
     profession: values[3],
   };
-  
+
   fetch(`${baseUrl}users/${values[0]}`, {
     method: "PUT",
     headers: {
@@ -100,10 +103,11 @@ savebtn.addEventListener("click", (evt) => {
     },
     body: JSON.stringify(payload),
   });
-  
-  setTimeout(function(){ window. location. reload(); }, 1000)
-});
 
+  setTimeout(function () {
+    window.location.reload();
+  }, 1000);
+});
 
 addbtn.addEventListener("click", (evt) => {
   const addbtn = document.querySelector(".update").children;
@@ -120,7 +124,6 @@ addbtn.addEventListener("click", (evt) => {
     lastname: values[2],
     profession: values[3],
   };
-  debugger
   fetch(`${baseUrl}users`, {
     method: "POST",
     headers: {
@@ -129,8 +132,21 @@ addbtn.addEventListener("click", (evt) => {
     body: JSON.stringify(payload),
   });
 
+  setTimeout(function () {
+    window.location.reload();
+  }, 1000);
+});
 
-  setTimeout(function(){ window. location. reload(); }, 1000)
+const findLocation = document.querySelector(".findLocation");
 
-
+findLocation.addEventListener("click", (event) => {
+  const ip_addres = document.querySelector(".findip");
+  const value = ip_addres.value;
+  console.log(value)
+  const res = fetch(`${findIPbaseUrl}&${value}`);
+  res.then((e) => {
+      e.json().then((elm)=>{
+        console.log(elm)
+      })
+  });
 });
