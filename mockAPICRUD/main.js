@@ -32,6 +32,7 @@ const findIPbaseUrl =
 const deletebtn = document.querySelector(".deletebtn");
 const savebtn = document.querySelector(".savebtn");
 const addbtn = document.querySelector(".addbtn");
+// const findLocation = document.querySelector(".findLocation");
 
 async function returnRes(url, endpoint, method) {
   try {
@@ -46,22 +47,23 @@ async function returnRes(url, endpoint, method) {
   }
 }
 
-const user = returnRes(baseUrl, "users", {});
-user
-  .then((res) => {
-    res.json().then((data) => {
-      data.forEach((elm) => {
-        const userRow = new urow(elm);
-        const tl = document.querySelector(".app");
-        tl.appendChild(userRow);
-      });
+const addUserRowsToDOM = (users) => {
+  const appContainer = document.querySelector(".app");
+  users.json().then((users) => {
+    users.forEach((user) => {
+      const userRow = new urow(user);
+      appContainer.appendChild(userRow);
     });
-  })
-  .catch((error) => {
-    console.error("An error occurred:", error);
   });
+};
 
-deletebtn.addEventListener("click", async (evt) => {
+//populate user at First
+const user = returnRes(baseUrl, "users", {});
+user.then(addUserRowsToDOM).catch((error) => {
+  console.error("An error occurred:", error);
+});
+
+const deleteUser = async (evt) => {
   const id = document.querySelector("input");
   try {
     const response = await fetch(`${baseUrl}/users/${id.value}`, {
@@ -78,9 +80,8 @@ deletebtn.addEventListener("click", async (evt) => {
   setTimeout(function () {
     window.location.reload();
   }, 1000);
-});
-
-savebtn.addEventListener("click", (evt) => {
+};
+const changeUser = (evt) => {
   const ipt = document.querySelector(".update").children;
   const inpArr = Array.from(ipt);
   const values = [];
@@ -96,20 +97,22 @@ savebtn.addEventListener("click", (evt) => {
     profession: values[3],
   };
 
-  fetch(`${baseUrl}users/${values[0]}`, {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(payload),
-  });
-
+  try {
+    fetch(`${baseUrl}users/${values[0]}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+  } catch (error) {
+    console.log(error);
+  }
   setTimeout(function () {
     window.location.reload();
   }, 1000);
-});
-
-addbtn.addEventListener("click", (evt) => {
+};
+const addNewUser = (evt) => {
   const addbtn = document.querySelector(".update").children;
   const addNewValues = Array.from(addbtn);
   const values = [];
@@ -135,18 +138,35 @@ addbtn.addEventListener("click", (evt) => {
   setTimeout(function () {
     window.location.reload();
   }, 1000);
-});
+};
+// const getLocation = (evt) => {
+//   const findip = document.querySelector(".findip");
+//   const ip_address = findip.value;
+//   console.log(ip_address);
+//   try {
+//     // const res = fetch(
+//     //   `${findIPbaseUrl}&ip_address=${value}&fields=country,city`
+//     // );
+//     const res = fetch(`${findIPbaseUrl}&ip_address=${ip_address}&fields=country,city`
+//     );
+//     res.then((e) => {
+//       if (!e.ok) {
+//         throw new Error(res.statusText);
+//       }
+//       e.json().then((res) => {
+//         console.log(res);
+//         window.document.write("city : ", res?.city);
+//         window.document.write(" ");
+//         window.document.write("country :", res?.country);
+//       });
+//     });
+//   } catch (error) {
+//     debugger;
+//     console.log(error);
+//   }
+// };
 
-const findLocation = document.querySelector(".findLocation");
-
-findLocation.addEventListener("click", (event) => {
-  const ip_addres = document.querySelector(".findip");
-  const value = ip_addres.value;
-  console.log(value)
-  const res = fetch(`${findIPbaseUrl}&${value}`);
-  res.then((e) => {
-      e.json().then((elm)=>{
-        console.log(elm)
-      })
-  });
-});
+deletebtn.addEventListener("click", deleteUser);
+savebtn.addEventListener("click", changeUser);
+addbtn.addEventListener("click", addNewUser);
+// findLocation.addEventListener("click", getLocation);
