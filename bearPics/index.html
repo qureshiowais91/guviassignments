@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cat Facts </title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    
+    .fact-container {
+      margin-bottom: 20px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Cat Facts </h1>
+  
+  <h2>Facts</h2>
+  <button onclick="getFacts()">Get Facts</button>
+  <div id="factResult"></div>
+ 
+  
+  <script>
+    function getFacts() {
+      fetch('https://cat-fact.herokuapp.com/facts')
+        .then(response => response.json())
+        .then(data => {
+          const factResult = document.getElementById('factResult');
+          factResult.innerHTML = '';
+          
+          data.forEach(fact => {
+            const factContainer = document.createElement('div');
+            factContainer.classList.add('fact-container');
+            factContainer.textContent = fact.text;
+            
+            factResult.appendChild(factContainer);
+          });
+        })
+        .catch(error => console.error(error));
+    }
+    
+    function getUserData() {
+      fetch('https://cat-fact.herokuapp.com/users', { headers: { Authorization: 'Bearer YOUR_TOKEN' } })
+        .then(response => response.json())
+        .then(data => {
+          const userDataResult = document.getElementById('userDataResult');
+          userDataResult.innerHTML = JSON.stringify(data, null, 2);
+        })
+        .catch(error => console.error(error));
+    }
+  </script>
+</body>
+</html>
